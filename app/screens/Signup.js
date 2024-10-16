@@ -23,7 +23,7 @@ const Signup = () => {
   const navigation = useNavigation();
 
   const handleSignup = () => {
-    registerUser(email, password); // Use the registerUser function
+    registerUser(email, password);
   };
 
   return (

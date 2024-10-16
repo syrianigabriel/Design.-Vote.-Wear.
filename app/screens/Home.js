@@ -1,9 +1,4 @@
 import React from 'react';
-import { StatusBar } from "expo-status-bar";
-import Feather from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
-import { loginUser } from '../../Authentication';
-
 import { 
     Image,
     SafeAreaView,
@@ -17,16 +12,31 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-
-function Home(props) {
+const WelcomeScreen = ({ navigation }) => {
+    const handleGetStarted = () => {
+        navigation.navigate("ImageSwiper");
+    };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style = {styles.content} >
-                <Text style = {styles.title}>Design. Vote. Wear.</Text>
-            </View>
-        </SafeAreaView>
-)};
+        <View style={styles.container}>
+            <View style = {styles.content}>
+                <Text style={styles.Introduction}>
+                    Swipe right to like and left to dislike the following images of clothing
+                </Text>
+                <Text style={[styles.Introduction, {marginBottom: 100}]}>
+                    We'll learn your preferences to suggest the best items for you
+                </Text>
+                <TouchableOpacity
+                    style={styles.GetStartedButton}
+                    onPress = {handleGetStarted}>
+                    <View style={styles.GetStartedButtonContent}>
+                    <Text style={styles.GetStartedButtonText}>Get Started</Text>
+                    </View>
+                </TouchableOpacity>
+                </View>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -37,106 +47,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
     },
     title: {
-        fontSize: 24,
-        fontWeight: "bold",
+        fontSize: 18,
         textAlign: 'center',
-        color: '#333',
-        letterSpacing: 1.5,
-        marginTop: 100,
-        marginBottom: 50,
-        padding: 10,
-      },
-    loginText: {
-        color: "black",
-        textAlign: "center",
+        marginBottom: 20,
+    },
+    Introduction: {
+        fontSize: 20, // Increased font size for better visibility
+        textAlign: 'center',
         fontWeight: "bold",
-        fontSize: 30,
-        marginBottom: 40,
+        marginTop: 50,
+        marginBottom: 20,
+        color: '#333', // Use a strong color for contrast
+        lineHeight: 28, // Increased line height for readability
     },
-    inputContainer: {
-        width: "100%",
-        height: 40,
-        backgroundColor: "#fff",
-        borderColor: "#333",
-        borderWidth: 2,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 25,
-    },
-    textInput: {
-        justifyContent: "center",
-        flex: 1,
-        marginHorizontal: 10,
-        textAlign: "left"
-    },
-    registerButton: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 10,
-        marginBottom: 30,
-    },
-    registerButtonText: {
-        fontSize: 12,
-        color: "#333",
-        textAlign: "center"
-    },
-    registerButtonTextHighlight: {
-        fontSize: 12,
-        color: "#333",
-        fontWeight: "bold",
-    },
-    forgotPasswordButton: {
-        backgroundColor: "#fff",
-        borderColor: "333",
-        borderWidth: 2,
-        padding: 15,
-        borderRadius: 25,
-        marginTop: 15,
-    },
-    forgotPasswordButtonText: {
-        color: "#333",
-        fontWeight: "bold",
-        fontSize: 16,
-        textAlign: "center",
-    },
-    loginButton: {
-        backgroundColor: "#333",
-        borderColor: "333",
-        borderWidth: 2,
-        padding: 15,
-        borderRadius: 25,
-    },
-    loginButtonText: {
-        color: "#fff",
-        fontWeight: "bold",
-        fontSize: 16,
-        textAlign: "center",
-    },
-    icon: {
-        marginLeft: 15,
-      },
-    iconEye: {
-        marginRight: 15,
-      },
-    orContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 30,
-        marginBottom: 30,
-    },
-    orLine: {
-        height: 1,
-        backgroundColor: "#eee",
-        flex: 1,
-    },
-    orText: {
-        color: "#7C808D",
-        marginHorizontal: 10,
-        fontSize: 14,
-    },
-    googleButton: {
+    GetStartedButton: {
         backgroundColor: "#fff",
         borderColor: "333",
         borderWidth: 2,
@@ -144,52 +68,18 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         marginBottom: 15,
     },
-    googleButtonContent: {
+    GetStartedButtonContent: {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "row",
     },
-    googleButtonText: {
+    GetStartedButtonText: {
         color: "#333",
         fontWeight: "bold",
         fontSize: 16,
         flex: 1,
         textAlign: "center",
-    },
-    googleLogo: {
-        height: 20,
-        width: 20,
-        justifyContent: "left",
-        position: "absolute",
-        left: 0,
-    },
-    fbButton: {
-        backgroundColor: "#fff",
-        borderColor: "333",
-        borderWidth: 2,
-        padding: 15,
-        borderRadius: 25,
-        marginBottom: 15,
-    },
-    fbButtonContent: {
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "row",
-    },
-    fbButtonContentText: {
-        color: "#333",
-        fontWeight: "bold",
-        fontSize: 16,
-        flex: 1,
-        textAlign: "center",
-    },
-    fbLogo: {
-        height: 20,
-        width: 20,
-        justifyContent: "left",
-        position: "absolute",
-        left: 0,
-    },
+    }
 });
 
-export default Home;
+export default WelcomeScreen;

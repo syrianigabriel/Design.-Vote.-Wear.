@@ -4,6 +4,7 @@ import Login from './app/screens/Login';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './app/screens/Signup';
 import { NavigationContainer } from '@react-navigation/native';
+import ImageSwiper from './app/screens/ImageSwiper';
 import Home from './app/screens/Home';
 
 const Stack = createNativeStackNavigator();
@@ -20,9 +21,11 @@ export default function App() {
           name="Signup"
           component={Signup}/>
         <Stack.Screen
+          name="ImageSwiper"
+          component={ImageSwiper}/>
+        <Stack.Screen
           name="Home"
-          component={Home}
-          options={{ headerShown: false }}/>
+          component={Home}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
