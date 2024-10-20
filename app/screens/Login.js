@@ -19,15 +19,21 @@ import {
 } from 'react-native';
 
 
-function Login(props) {
+function Login({ onLogin }) {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [passwordIsVisible, setPasswordIsVisible] = React.useState(false);
     const navigation = useNavigation();
 
-    const handleLogin = () => {
-        loginUser(email, password);
-      };
+    const handleLogin = async () => {
+        try {
+            await loginUser(email, password);
+            onLogin(true);
+            navigation.replace("Home");
+        } catch (error) {
+            setErrorMessage("Invalid email or password. Please try again.");
+        }
+    };
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
