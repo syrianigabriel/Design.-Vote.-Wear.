@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import CustomButton from '../components/CustomButton';
 
 const ImageSwiper = ({ navigation }) => {
     
@@ -36,17 +37,16 @@ const ImageSwiper = ({ navigation }) => {
     };
 
     const handleDislike = () => {
-        // Increment index and check bounds
         if (currentIndex < images.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
             console.log("No more images! Fetching more...");
-            fetchImages(); // Optionally fetch more images
+            fetchImages();
         }
     };
 
     useEffect(() => {
-        fetchImages(); // Fetch images on component mount
+        fetchImages();
     }, [page]);
 
     return (
@@ -54,17 +54,13 @@ const ImageSwiper = ({ navigation }) => {
             <View style={styles.content}>
                 <Text style={styles.title}>Start Swiping!</Text>
                 {images.length > 0 &&
-                    <Image source={{ uri: images[currentIndex].urls.regular }} // Display the current image
+                    <Image source={{ uri: images[currentIndex].urls.regular }}
                             style={styles.image}/>
                 }
             </View>
             <View style={styles.ButtonContainer}>
-                <TouchableOpacity onPress={handleLike} style={styles.Button}>
-                <Text style = {styles.ButtonText}>Like</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleDislike} style={styles.Button}>
-                    <Text style = {styles.ButtonText}>Dislike</Text>
-                </TouchableOpacity>
+                <CustomButton title='Like' onPress={handleLike} size='small' theme='light' />
+                <CustomButton title='Dislike' onPress={handleDislike} size='small' theme='light' />
             </View>
         </View>
     );
@@ -93,21 +89,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         width: '100%',
         padding: 20,
-    },
-    Button: {
-        backgroundColor: "#fff",
-        borderColor: "333",
-        borderWidth: 2,
-        padding: 15,
-        width: 100,
-        borderRadius: 75,
-        marginTop: 15,
-    },
-    ButtonText: {
-        color: "#333",
-        fontWeight: "bold",
-        fontSize: 18,
-        textAlign: 'center',
     },
     image: {
         width: '100%', // Take up the full width of the container

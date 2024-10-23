@@ -11,6 +11,7 @@ import {
     TextInput,
     TouchableOpacity,
 } from 'react-native';
+import CustomButton from '../components/CustomButton';
 
 const WelcomeScreen = ({ navigation }) => {
     const handleGetStarted = () => {
@@ -26,13 +27,7 @@ const WelcomeScreen = ({ navigation }) => {
                 <Text style={[styles.Introduction, {marginBottom: 100}]}>
                     We'll learn your preferences to suggest the best items for you
                 </Text>
-                <TouchableOpacity
-                    style={styles.GetStartedButton}
-                    onPress = {handleGetStarted}>
-                    <View style={styles.GetStartedButtonContent}>
-                    <Text style={styles.GetStartedButtonText}>Get Started</Text>
-                    </View>
-                </TouchableOpacity>
+                <CustomButton size='large' theme='light' onPress={handleGetStarted} title='Get Started' />
                 </View>
         </View>
     );

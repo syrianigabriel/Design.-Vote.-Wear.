@@ -4,6 +4,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { loginUser } from '../../Authentication';
 import { auth } from '../../firebaseConfig';
+import CustomButton from '../components/CustomButton';
 
 import { 
     Image,
@@ -33,6 +34,10 @@ function Login({ onLogin }) {
         } catch (error) {
             setErrorMessage("Invalid email or password. Please try again.");
         }
+    };
+
+    const handleSignup = () => {
+        navigation.navigate('Signup');
     };
 
     useEffect(() => {
@@ -80,39 +85,33 @@ function Login({ onLogin }) {
                         <TouchableOpacity
                             style={styles.iconEye}
                             onPress={() => setPasswordIsVisible(!passwordIsVisible)}>
-                            <Feather name={passwordIsVisible ? "eye" : "eye-off"} size={20} color="#7C808D" />
+                            <Feather name={passwordIsVisible ? "eye" : "eye-off"} size={20} color="#333" />
                         </TouchableOpacity>
                     )}
                 </View>
                 <View style = {styles.registerButton}>
                     <Text style = {styles.registerButtonText}>Don't have an account?</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+                        <TouchableOpacity onPress={handleSignup}>
                             <Text style={styles.registerButtonTextHighlight}> Sign up here.</Text>
                         </TouchableOpacity>
                 </View>
-                <TouchableOpacity style = {styles.loginButton} onPress={handleLogin}>
-                    <Text style = {styles.loginButtonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.forgotPasswordButton}>
-                    <Text style = {styles.forgotPasswordButtonText}>Forgot your password?</Text>
-                </TouchableOpacity>
+                <CustomButton size='large' theme='dark' title='Login' onPress={handleLogin}/>
+                <CustomButton size='large' theme='light' title='Forgot your password?'/>
                 <View style ={styles.orContainer}>
                     <View style ={styles.orLine} />
                     <Text style = {styles.orText}> OR </Text>
                     <View style ={styles.orLine} />
                 </View>
-                <TouchableOpacity style = {styles.googleButton}>
-                    <View style ={styles.googleButtonContent}>
-                    <Image style={styles.googleLogo} source={require("../assets/google.png")} />
-                    <Text style = {styles.googleButtonText}>Sign in with Google</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.fbButton}>
-                    <View style ={styles.fbButtonContent}>
-                    <Image style={styles.fbLogo} source={require("../assets/facebook.png")} />
-                    <Text style = {styles.fbButtonContentText}>Sign in with Facebook</Text>
-                    </View>
-                </TouchableOpacity>
+                <CustomButton size='large'
+                              theme='light'
+                              imageSource={require("../assets/google.png")}
+                              title='Sign in with Google'
+                />
+                <CustomButton size='large'
+                              theme='light'
+                              imageSource={require("../assets/facebook.png")}
+                              title='Sign in with Facebook'
+                />
             </View>
         </SafeAreaView>
 )};
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 50,
         padding: 10,
-      },
+    },
     loginText: {
         color: "black",
         textAlign: "center",
@@ -224,60 +223,6 @@ const styles = StyleSheet.create({
         color: "#7C808D",
         marginHorizontal: 10,
         fontSize: 14,
-    },
-    googleButton: {
-        backgroundColor: "#fff",
-        borderColor: "333",
-        borderWidth: 2,
-        padding: 15,
-        borderRadius: 25,
-        marginBottom: 15,
-    },
-    googleButtonContent: {
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "row",
-    },
-    googleButtonText: {
-        color: "#333",
-        fontWeight: "bold",
-        fontSize: 16,
-        flex: 1,
-        textAlign: "center",
-    },
-    googleLogo: {
-        height: 20,
-        width: 20,
-        justifyContent: "left",
-        position: "absolute",
-        left: 0,
-    },
-    fbButton: {
-        backgroundColor: "#fff",
-        borderColor: "333",
-        borderWidth: 2,
-        padding: 15,
-        borderRadius: 25,
-        marginBottom: 15,
-    },
-    fbButtonContent: {
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "row",
-    },
-    fbButtonContentText: {
-        color: "#333",
-        fontWeight: "bold",
-        fontSize: 16,
-        flex: 1,
-        textAlign: "center",
-    },
-    fbLogo: {
-        height: 20,
-        width: 20,
-        justifyContent: "left",
-        position: "absolute",
-        left: 0,
     },
 });
 

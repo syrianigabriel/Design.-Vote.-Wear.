@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { registerUser } from '../../Authentication';
+import CustomButton from '../components/CustomButton';
 
 import { 
     Image,
@@ -29,69 +30,67 @@ const Signup = () => {
   return (
       <SafeAreaView style={styles.container}>
           <View style = {styles.content} >
-              <Text style = {styles.title}>Design. Vote. Wear.</Text>
-                  <View style = {[styles.inputContainer, {marginBottom: 30}]}>
-                      <View style={styles.icon}>
-                          <Feather name="mail" size={22} color="#7C808D" />
-                      </View>
-                      <TextInput
-                      style = {styles.textInput}
-                      placeholder='Email'
-                      value={email}
-                      onChangeText={setEmail}
-                      autoCapitalize="none"
-                      placeholderTextColor="#7C808D"
-                      selectionColor="3662AA"
-                      />
-                      </View>
-              <View style = {styles.inputContainer}>
-                  <View style={styles.icon}>
-                      <Feather name="lock" size={22} color="#7C808D" />
-                  </View>
-                  <TextInput
-                      style = {styles.textInput}
-                      placeholder='Password'
-                      value={password}
-                      onChangeText={setPassword}
-                      autoCapitalize="none"
-                      placeholderTextColor="#7C808D"
-                      selectionColor="3662AA"
-                      secureTextEntry={!passwordIsVisible}
-                  />
-                  {password.length > 0 && (
-                      <TouchableOpacity
-                          style={styles.iconEye}
-                          onPress={() => setPasswordIsVisible(!passwordIsVisible)}>
-                          <Feather name={passwordIsVisible ? "eye" : "eye-off"} size={20} color="#7C808D" />
-                      </TouchableOpacity>
-                  )}
-              </View>
-              <View style = {styles.registerButton}>
-                  <Text style = {styles.registerButtonText}>Already have an account?</Text>
-                      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                          <Text style={styles.registerButtonTextHighlight}> Login.</Text>
-                      </TouchableOpacity>
-              </View>
-              <TouchableOpacity style = {styles.loginButton} onPress={handleSignup}>
-                  <Text style = {styles.loginButtonText}>Sign Up</Text>
-              </TouchableOpacity>
-              <View style ={styles.orContainer}>
-                  <View style ={styles.orLine} />
-                  <Text style = {styles.orText}> OR </Text>
-                  <View style ={styles.orLine} />
-              </View>
-              <TouchableOpacity style = {styles.googleButton}>
-                  <View style ={styles.googleButtonContent}>
-                  <Image style={styles.googleLogo} source={require("../assets/google.png")} />
-                  <Text style = {styles.googleButtonText}>Sign up with Google</Text>
-                  </View>
-              </TouchableOpacity>
-              <TouchableOpacity style = {styles.fbButton}>
-                  <View style ={styles.fbButtonContent}>
-                  <Image style={styles.fbLogo} source={require("../assets/facebook.png")} />
-                  <Text style = {styles.fbButtonContentText}>Sign up with Facebook</Text>
-                  </View>
-              </TouchableOpacity>
+            <Text style = {styles.title}>Design. Vote. Wear.</Text>
+                <View style = {[styles.inputContainer, {marginBottom: 30}]}>
+                    <View style={styles.icon}>
+                        <Feather name="mail" size={22} color="#7C808D" />
+                    </View>
+                    <TextInput
+                    style = {styles.textInput}
+                    placeholder='Email'
+                    value={email}
+                    onChangeText={setEmail}
+                    autoCapitalize="none"
+                    placeholderTextColor="#7C808D"
+                    selectionColor="3662AA"
+                    />
+                    </View>
+            <View style = {styles.inputContainer}>
+                <View style={styles.icon}>
+                    <Feather name="lock" size={22} color="#7C808D" />
+                </View>
+                <TextInput
+                    style = {styles.textInput}
+                    placeholder='Password'
+                    value={password}
+                    onChangeText={setPassword}
+                    autoCapitalize="none"
+                    placeholderTextColor="#7C808D"
+                    selectionColor="3662AA"
+                    secureTextEntry={!passwordIsVisible}
+                />
+                {password.length > 0 && (
+                    <TouchableOpacity
+                        style={styles.iconEye}
+                        onPress={() => setPasswordIsVisible(!passwordIsVisible)}>
+                        <Feather name={passwordIsVisible ? "eye" : "eye-off"} size={20} color="#333" />
+                    </TouchableOpacity>
+                )}
+            </View>
+            <View style = {styles.registerButton}>
+                <Text style = {styles.registerButtonText}>Already have an account?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                    <Text style={styles.registerButtonTextHighlight}> Login.</Text>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity style = {styles.loginButton} onPress={handleSignup}>
+                <Text style = {styles.loginButtonText}>Sign Up</Text>
+            </TouchableOpacity>
+            <View style ={styles.orContainer}>
+                <View style ={styles.orLine} />
+                <Text style = {styles.orText}> OR </Text>
+                <View style ={styles.orLine} />
+            </View>
+            <CustomButton size='large'
+                              theme='light'
+                              imageSource={require("../assets/google.png")}
+                              title='Sign in with Google'
+                />
+            <CustomButton size='large'
+                              theme='light'
+                              imageSource={require("../assets/facebook.png")}
+                              title='Sign in with Facebook'
+                />
           </View>
       </SafeAreaView>
 )};

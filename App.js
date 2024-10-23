@@ -8,10 +8,9 @@ import Signup from './app/screens/Signup';
 import { NavigationContainer } from '@react-navigation/native';
 import ImageSwiper from './app/screens/ImageSwiper';
 import Home from './app/screens/Home';
-import Profile from './app/screens/Profile';
-import Feed from './app/screens/Feed';
+import { Profile, PersonalInformation, AccountSettings, NotificationSettings } from './app/screens/Profile';
+import Listings from './app/screens/Listings';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 const Tab = createBottomTabNavigator();
 const AuthStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
@@ -33,7 +32,10 @@ function AuthStackNavigator({ onLogin }) {
 function ProfileStackNavigator() {
   return (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-      <ProfileStack.Screen name ="Profile" component={Profile} />
+      <ProfileStack.Screen name ="ProfileHome" component={Profile}/>
+      <ProfileStack.Screen name="PersonalInformation" component={PersonalInformation}/>
+      <ProfileStack.Screen name="AccountSettings" component={AccountSettings}/>
+      <ProfileStack.Screen name="NotificationSettings" component={NotificationSettings}/>
     </ProfileStack.Navigator>
   )
 }
@@ -41,7 +43,7 @@ function ProfileStackNavigator() {
 function TrainStackNavigator() {
   return (
     <TrainStack.Navigator screenOptions={{ headerShown: false }}>
-      <TrainStack.Screen name="Home" component={Home} />
+      <TrainStack.Screen name="TrainHome" component={Home} />
       <TrainStack.Screen name="ImageSwiper" component={ImageSwiper} />
     </TrainStack.Navigator>
   )
@@ -50,7 +52,7 @@ function TrainStackNavigator() {
 function FeedStackNavigator() {
   return (
     <FeedStack.Navigator screenOptions={{ headerShown: false }}>
-      <FeedStack.Screen name="Feed" component={Feed} />
+      <FeedStack.Screen name="Suggestions" component={Listings} />
     </FeedStack.Navigator>
   )
 }
@@ -99,7 +101,7 @@ export default function App() {
     <NavigationContainer>
         <MainApp.Navigator screenOptions={{ headerShown: false }}>
             {isLoggedIn ? (
-                <MainApp.Screen name="Home" component={MainTabs} />
+                <MainApp.Screen name="Welcome" component={MainTabs} />
             ) : (
                 <MainApp.Screen name="AuthStack">
                     {(props) => <AuthStackNavigator {...props} onLogin={setIsLoggedIn} />}
