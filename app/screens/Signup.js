@@ -20,17 +20,19 @@ import {
 const Signup = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [passwordIsVisible, setPasswordIsVisible] = React.useState(false);
   const navigation = useNavigation();
 
   const handleSignup = () => {
-    registerUser(email, password);
+    registerUser(email, password, firstName, lastName);
   };
 
   return (
       <SafeAreaView style={styles.container}>
           <View style = {styles.content} >
-            <Text style = {styles.title}>Design. Vote. Wear.</Text>
+            <Text style = {styles.title}>Welcome!</Text>
                 <View style = {[styles.inputContainer, {marginBottom: 30}]}>
                     <View style={styles.icon}>
                         <Feather name="mail" size={22} color="#7C808D" />
@@ -45,7 +47,7 @@ const Signup = () => {
                     selectionColor="3662AA"
                     />
                     </View>
-            <View style = {styles.inputContainer}>
+            <View style = {[styles.inputContainer, {marginBottom: 30}]}>
                 <View style={styles.icon}>
                     <Feather name="lock" size={22} color="#7C808D" />
                 </View>
@@ -67,6 +69,36 @@ const Signup = () => {
                     </TouchableOpacity>
                 )}
             </View>
+            <View style={styles.nameContainer}>
+                <View style = {styles.nameInputContainer}>
+                    <View style={styles.icon}>
+                        <Feather name="user" size={22} color="#7C808D" />
+                    </View>
+                    <TextInput
+                        style = {styles.textInput}
+                        placeholder='First Name'
+                        value={firstName}
+                        onChangeText={setFirstName}
+                        autoCapitalize="words"
+                        placeholderTextColor="#7C808D"
+                        selectionColor="3662AA"
+                    />
+                </View>
+                <View style = {styles.nameInputContainer}>
+                    <View style={styles.icon}>
+                        <Feather name="user" size={22} color="#7C808D" />
+                    </View>
+                    <TextInput
+                        style = {styles.textInput}
+                        placeholder='Last Name'
+                        value={lastName}
+                        onChangeText={setLastName}
+                        autoCapitalize="words"
+                        placeholderTextColor="#7C808D"
+                        selectionColor="3662AA"
+                    />
+                </View>
+            </View>
             <View style = {styles.registerButton}>
                 <Text style = {styles.registerButtonText}>Already have an account?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate("Login")}>
@@ -84,12 +116,12 @@ const Signup = () => {
             <CustomButton size='large'
                               theme='light'
                               imageSource={require("../assets/google.png")}
-                              title='Sign in with Google'
+                              title='Sign up with Google'
                 />
             <CustomButton size='large'
                               theme='light'
                               imageSource={require("../assets/facebook.png")}
-                              title='Sign in with Facebook'
+                              title='Sign up with Facebook'
                 />
           </View>
       </SafeAreaView>
@@ -109,8 +141,8 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       color: '#333',
       letterSpacing: 1.5,
-      marginTop: 100,
-      marginBottom: 50,
+      marginTop: 25,
+      marginBottom: 25,
       padding: 10,
     },
   loginText: {
@@ -131,6 +163,23 @@ const styles = StyleSheet.create({
       alignItems: "center",
       borderRadius: 25,
   },
+  nameInputContainer: {
+    width: '45%',
+    height: 40,
+    backgroundColor: "#fff",
+    borderColor: "#333",
+    borderWidth: 2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25,
+},
+  nameContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: '100%',
+},
   textInput: {
       justifyContent: "center",
       flex: 1,
@@ -202,60 +251,6 @@ const styles = StyleSheet.create({
       color: "#7C808D",
       marginHorizontal: 10,
       fontSize: 14,
-  },
-  googleButton: {
-      backgroundColor: "#fff",
-      borderColor: "333",
-      borderWidth: 2,
-      padding: 15,
-      borderRadius: 25,
-      marginBottom: 15,
-  },
-  googleButtonContent: {
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "row",
-  },
-  googleButtonText: {
-      color: "#333",
-      fontWeight: "bold",
-      fontSize: 16,
-      flex: 1,
-      textAlign: "center",
-  },
-  googleLogo: {
-      height: 20,
-      width: 20,
-      justifyContent: "left",
-      position: "absolute",
-      left: 0,
-  },
-  fbButton: {
-      backgroundColor: "#fff",
-      borderColor: "333",
-      borderWidth: 2,
-      padding: 15,
-      borderRadius: 25,
-      marginBottom: 15,
-  },
-  fbButtonContent: {
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "row",
-  },
-  fbButtonContentText: {
-      color: "#333",
-      fontWeight: "bold",
-      fontSize: 16,
-      flex: 1,
-      textAlign: "center",
-  },
-  fbLogo: {
-      height: 20,
-      width: 20,
-      justifyContent: "left",
-      position: "absolute",
-      left: 0,
   },
 });
 

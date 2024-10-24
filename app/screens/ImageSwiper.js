@@ -1,16 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import CustomButton from '../components/CustomButton';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const ImageSwiper = ({ navigation }) => {
-    
     const [images, setImages] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [page, setPage] = useState(1);
-    
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const db = getFirestore();
+
+    const handlePreference = async (imageID, preference) => {
+        try {
+            const userID = user.uid;
+            console.log(userID);
+            const docRef = doc(db, 'users', userID, preference, imageID);
+
+            await setDoc(docRef, {
+                imageID,
+                timestamp: new Date()
+            });
+
+            console.log('Preference record for user:', userID, 'Image:', imageID, 'Preference:', preference);
+        } catch (error) {
+            console.error('Error recording preference', error);
+        }
+    };
+
     const fetchImages = async () => {
         try {
-            const response = await fetch('https://api.unsplash.com/search/photos?query=clothing&per_page=10&page=${page}', {
+            const response = await fetch('https://api.unsplash.com/search/photos?query=shirt&per_page=10&page=${page}', {
                 headers: {
                     Authorization: 'Client-ID Aa3dc0TtFoQSlcPZ0mCHMnF08E45R213rZaHE0oIF-o',
                 },
@@ -28,6 +49,7 @@ const ImageSwiper = ({ navigation }) => {
 
     const handleLike = () => {
         if (currentIndex < images.length - 1) {
+            handlePreference(images[currentIndex].id, 'like');
             setCurrentIndex(currentIndex + 1);
         } else {
             console.log("No more images! Fetching more...");
@@ -38,6 +60,7 @@ const ImageSwiper = ({ navigation }) => {
 
     const handleDislike = () => {
         if (currentIndex < images.length - 1) {
+            handlePreference(images[currentIndex].id, 'dislike');
             setCurrentIndex(currentIndex + 1);
         } else {
             console.log("No more images! Fetching more...");

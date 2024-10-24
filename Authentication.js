@@ -1,14 +1,23 @@
 // app/auth.js
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { app } from './firebaseConfig'; // Adjust the import based on your firebase config file
+import { app } from './firebaseConfig';
+import { auth, firestore } from './firebaseConfig';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
-const auth = getAuth(app);
+const db = getFirestore();
 
-
-export const registerUser = async (email, password) => {
+export const registerUser = async (email, password, firstName, lastName) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         console.log(userCredential.user.email);
+        const user = userCredential.user;
+
+        await setDoc(doc(db, "users", user.uid), {
+            firstName,
+            lastName,
+            email
+        });
+
         return userCredential;
     } catch (error) {
         console.error("Error registering user:", error);

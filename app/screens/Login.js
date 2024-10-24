@@ -30,7 +30,6 @@ function Login({ onLogin }) {
         try {
             await loginUser(email, password);
             onLogin(true);
-            navigation.replace("Home");
         } catch (error) {
             setErrorMessage("Invalid email or password. Please try again.");
         }
@@ -39,15 +38,6 @@ function Login({ onLogin }) {
     const handleSignup = () => {
         navigation.navigate('Signup');
     };
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            if (user) {
-                navigation.replace("Home")
-            }
-        })
-        return unsubscribe
-    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
